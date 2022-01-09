@@ -302,13 +302,17 @@ main {
   display: none;
 }
 
+#guess {
+  width: 120px;
+}
+
 #guess_form_container {
   margin-bottom: 20px;
 }
 
 #guess_form_giveup {
   display: inline-block;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 #warning {

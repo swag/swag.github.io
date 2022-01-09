@@ -353,6 +353,34 @@ main {
   overflow: scroll;
 }
 
+#keyboard {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.keyboard_row {
+  margin-top: 5px;
+}
+
+#keyboard .key {
+  display: inline-block;
+  padding: 5px;
+  width: 20px;
+}
+
+#keyboard .key.selected {
+  background-color: gray;
+  color: white;
+}
+
+#keyboard .key.selected.contained {
+  background-color: goldenrod;
+}
+
+#keyboard .key.selected.contained.correct, #keyboard .key.selected.correct {
+  background-color: green;
+}
+
 @media only screen and (max-width: 600px) {
   #wordlist {
     height: 200px;

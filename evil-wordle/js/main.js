@@ -5,6 +5,7 @@ $("#guess").focus();
 
 // copy main word list
 var validwords = [];
+var my_word = "";
 for (i = 0; i < words_common.length; i++) {
   validwords[i] = words_common[i];
 }
@@ -214,7 +215,17 @@ $("#how").click(function(e) {
 });
 
 var generate_share = function() {
-  var share = "Evil Wordle: " + guesses.length + " guesses\n\n"
+  if(my_word === "") {
+    my_word = validwords[0];
+  }
+  var share = "Evil Wordle: \"" + my_word + "\". "
+  if(has_won) {
+    share += "I won after "
+  }
+  else {
+    share += "I lost after "
+  }
+  share += guesses.length + " guesses\n\n"
   for(var i = 0; i < guess_sts.length; i++) {
     var cur_st = guess_sts[i];
     var symbols = '';
@@ -229,12 +240,19 @@ var generate_share = function() {
         symbols += '🟩';
       }
     }
-    share += symbols + '\n\nhttps://swag.github.io/evil-wordle/';
+    share += symbols + '\n';
   }
-  share += '\n';
+  share += '\n\nhttps://swag.github.io/evil-wordle/';
   copyToClipboard(share);
   return share;
 }
+
+$("#guess_form_giveup").click(function(e) {
+  my_word = validwords[Math.floor(Math.random()*validwords.length)];
+  $("#victory").text("I was thinking of \"" + my_word + "\". You lose!");
+  $("#victory_container").show();
+  $("#guess_form_container").hide();
+})
 
 function copyToClipboard(text) {
   var sampleTextarea = document.createElement("textarea");

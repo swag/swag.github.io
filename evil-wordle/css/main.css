@@ -306,8 +306,9 @@ main {
   margin-bottom: 20px;
 }
 
-#guess {
-  width: 200px;
+#guess_form_giveup {
+  display: inline-block;
+  margin-left: 10px;
 }
 
 #warning {

@@ -251,6 +251,7 @@ $("#guess_form_giveup").click(function(e) {
   my_word = validwords[Math.floor(Math.random()*validwords.length)];
   $("#victory").text("I was thinking of \"" + my_word + "\". You lose!");
   $("#victory_container").show();
+  $("#warning").empty();
   $("#guess_form_container").hide();
 })
 

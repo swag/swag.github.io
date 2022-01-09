@@ -267,11 +267,13 @@ body {
 
 h1 {
   text-align: center;
+  margin: 0;
 }
 
 main {
-  width: 360px;
-  padding: 20px 0;
+  min-width: 300px;
+  max-width: 400px;
+  padding: 0px 20px;
   margin: 0 auto;
 }
 
@@ -279,7 +281,6 @@ main {
   width: 45px;
   height: 43px;
   padding-top: 2px;
-  /* border: 1px solid black; */
   display: inline-block;
   background-color: grey;
   margin-right: 10px;
@@ -303,6 +304,10 @@ main {
 
 #guess_form_container {
   margin-bottom: 20px;
+}
+
+#guess {
+  width: 200px;
 }
 
 #warning {
@@ -339,14 +344,30 @@ main {
 }
 
 #wordlist {
-  min-height: 300px;
+  min-height: 200px;
   overflow: scroll;
 }
 
 @media only screen and (max-width: 600px) {
   #wordlist {
-    height: 300px;
+    height: 200px;
     overflow: scroll;
+  }
+
+  .letterbtn {
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+    background-color: grey;
+    margin-right: 5px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .row {
+    margin-bottom: 5px;
   }
 }
 

@@ -229,8 +229,9 @@ var generate_share = function() {
         symbols += '🟩';
       }
     }
-    share += symbols + '\n';
+    share += symbols + '\n\nhttps://swag.github.io/evil-wordle/';
   }
+  share += '\n';
   copyToClipboard(share);
   return share;
 }

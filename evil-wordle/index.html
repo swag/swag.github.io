@@ -1,0 +1,72 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  <main>
+    <h1>😈 EVIL WORDLE 😈</h1>
+    <p>
+      <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Wordle</a> is a daily word guessing game. This is an evil version. Try and guess what I'm thinking of...
+    </p>
+    <div id="guess_form_container">
+      <form id="guess_form">
+        <input type="text" id="guess" placeholder="5 letters" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <input type="submit" id="guess_form_submit" value="Guess" />
+      </form>
+    </div>
+    <div id="warning"></div>
+    <div id="victory_container">
+      <div id="victory"></div>
+      <p id="share_container">
+        <a href="javascript:void(0)" id="share_button">Click Here to share results</a>
+      </p>
+    </div>    
+    <div id="wordlist">
+    </div>
+    <div id="author">
+      <p>Evil Wordle was created by Ravi Parikh. Twitter: <a href="https://twitter.com/ravisparikh">@ravisparikh</a></p>
+      <p><a href="javascript:void(0)" id="how">How does it work?</a></p>
+      <p id="howitworks">There's no word set by default. Every time you guess, I look at all possible 5-letter words that would fit all your guesses, and choose the match pattern that results in the most possible words. The goal is to maximize the amount of guesses it takes to find the word.</p>
+    </div>
+  </main>
+
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/wordlists.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>

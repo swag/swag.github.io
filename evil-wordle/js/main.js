@@ -1,37 +1,146 @@
 var guesses = [];
 var guess_sts = [];
 var has_won = false;
+var validwords = [];
+var my_word = "";
+var words_common = words_common_5;
+var words_all = words_all_5;
+var win_string = '22222';
+var is_evil = true;
+var options_shown = false;
+var is_timed = false;
+var start_time = 0;
+var timer_id = 0;
+var time_elapsed = 0;
+
+// options state
+var word_length = 5;
+
+// init keyboard
+var init_keyboard = function() {
+  var keys = [
+    'QWERTYUIOP',
+    'ASDFGHJKL',
+    'ZXCVBNM'
+  ];
+  for(var i = 0; i < keys.length; i++) {
+    var row = keys[i];
+    for(var j = 0; j < row.length; j++) {
+      var cur_char = row.charAt(j);
+      $("#keyboard_row" + i).append( "<span class='key' id='key_" + cur_char + "'>" + cur_char + "</span>" );
+    }
+  }
+};
+
+// toggle word length
+var change_options = function() {
+  word_length = parseInt($('input[name="word_length"]:checked').val());
+  is_evil = $('input[name="is_evil"]:checked').val() === "yes";
+  is_timed = $('input[name="game_mode"]:checked').val() === "timed";
+};
+
+var start_timer = function() {
+  start_time = Date.now();
+  timer_id = setInterval(update_timer, 29);
+};
+
+var stop_timer = function() {
+  clearInterval(timer_id);
+};
+
+var update_timer = function() {
+  if(start_time === 0) {
+    $("#timer-display").text("--");
+  }
+  else {
+    time_elapsed = Math.round(((Date.now() - start_time) / 1000.0 + Number.EPSILON) * 100) / 100;
+    $("#timer-display").text(time_elapsed + " sec");
+  }
+};
+
+var toggle_options = function(to_show) {
+  options_shown = to_show;
+  if(options_shown) {
+    $("#options_container").show();
+    $(this).html("Options &#x25BC;");
+  }
+  else {
+    $("#options_container").hide();
+    $(this).html("Options &#x25B6;");
+  }
+};
+
+// init variables and canvas
+var reset_canvas = function() {
+  // set options
+  change_options();
+
+  // set dictionary
+  if(word_length === 6) {
+    words_common = words_common_6;
+    words_all = words_all_6;
+  }
+  else {
+    words_common = words_common_5;
+    words_all = words_all_5;
+  }
+
+  // toggle timer
+  if(is_timed) {
+    $("#keyboard_container").addClass("timer_active");
+  }
+  else {
+    $("#keyboard_container").removeClass("timer_active");
+  }
+
+  // reset keyboard
+  $(".key").removeClass("selected");
+  $(".key").removeClass("contained");
+  $(".key").removeClass("correct");
+
+  // reset state
+  guesses = [];
+  guess_sts = [];
+  has_won = false;
+  start_time = 0;
+  if(timer_id >= 0) {
+    clearInterval(timer_id);
+  }
+  timer_id = -1;
+
+  // copy main word list
+  if(is_evil) {
+    validwords = [];
+    my_word = "";
+    for (i = 0; i < words_common.length; i++) {
+      validwords[i] = words_common[i];
+    }
+  }
+  else {
+    my_word = words_common[Math.floor(Math.random()*words_common.length)];
+    validwords = [my_word];
+  }
+
+  win_string = '2'.repeat(word_length);
+
+  $("#warning").empty();
+  $("#victory").empty();
+  $("#wordlist").empty();
+  $("#share_button").show()
+  $("#share_note").hide();
+  $("#victory_container").hide();
+  $("#guess_form_container").show();
+  $("#guess").attr("placeholder", word_length + " letters");
+  $("#timer-display").text("--");
+};
 
 $( document ).ready(function() {
   $("#guess").focus();
-
-  // init keyboard
-  var init_keyboard = function() {
-    var keys = [
-      'QWERTYUIOP',
-      'ASDFGHJKL',
-      'ZXCVBNM'
-    ];
-    for(var i = 0; i < keys.length; i++) {
-      var row = keys[i];
-      for(var j = 0; j < row.length; j++) {
-        var cur_char = row.charAt(j);
-        $("#keyboard_row" + i).append( "<span class='key' id='key_" + cur_char + "'>" + cur_char + "</span>" );
-      }
-    }
-  };
   init_keyboard();
-
-
-  // copy main word list
-  var validwords = [];
-  var my_word = "";
-  for (i = 0; i < words_common.length; i++) {
-    validwords[i] = words_common[i];
-  }
+  reset_canvas();
 
   var check_valid_guess = function(guess) {
-    return guess.length === 5 && /^[a-z]+$/.test(guess) && (words_common.includes(guess) || words_all.includes(guess));
+    return guess.length === word_length && /^[a-z]+$/.test(guess) && (words_common.includes(guess) || words_all.includes(guess));
   };
 
   var setCharAt = function(str,index,chr) {
@@ -69,7 +178,7 @@ $( document ).ready(function() {
     var matches = {};
     var recheck = false;
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < word_length; i++) {
       var cur_char = guess.charAt(i);
       if (matchword.indexOf(cur_char) === -1) {
         score_st += '0';
@@ -103,7 +212,7 @@ $( document ).ready(function() {
     }
 
     if(recheck) {
-      for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < word_length; i++) {
         if(score_st.charAt(i) === '_') {
           var cur_char = guess.charAt(i);
           // TODO: this if statement is redundant with _?
@@ -136,22 +245,12 @@ $( document ).ready(function() {
       score_sts.push(comp[1]);
     }
 
-    // find the min pattern with the most
-    // var min_score = Math.min(...scores);
-    // var min_sts = [];
-    // for(var i = 0; i < scores.length; i++) {
-    //   if(scores[i] === min_score) {
-    //     min_sts.push(score_sts[i]);
-    //   }
-    // }
-    // var match_st = mode(min_sts);
-
-    // ALT: find the non-min pattern with the most - i think this is more evil?
+    // find the non-min pattern with the most - i think this is more evil?
     var min_score = Math.min(...scores);
-    var min_sts = score_sts.filter(function(st) { return st !== '22222'; });
+    var min_sts = score_sts.filter(function(st) { return st !== win_string; });
     var match_st = '';
     if(min_sts.length === 0) {
-      match_st = '22222';
+      match_st = win_string;
     }
     else {
       match_st = mode(min_sts);
@@ -183,6 +282,7 @@ $( document ).ready(function() {
   };
 
   $("#guess_form").submit(function(e) {
+    if(options_shown) { toggle_options(false); }
     if(has_won) {
       e.preventDefault();
       return;
@@ -190,9 +290,12 @@ $( document ).ready(function() {
     $("#warning").empty();
     var guess = $("#guess").val().toLowerCase();
     if(!check_valid_guess(guess)) {
-      $("#warning").text("Invalid guess. Must be 5-letter long real English word.");
+      $("#warning").text("Invalid guess. Must be " + word_length + "-letter long real English word.");
     }
     else {
+      if(guesses.length === 0) {
+        start_timer();
+      }
       guesses.push(guess);
       $('#guess').val("");
 
@@ -225,8 +328,10 @@ $( document ).ready(function() {
       $("#wordlist").append(html_to_add);
       $("#wordlist").animate({ scrollTop: $('#wordlist').prop("scrollHeight")}, 1000);
 
-      if(comp_st === '22222') {
-        $("#victory").text("You won in " + guesses.length + " guesses!");
+      if(comp_st === win_string) {
+        stop_timer();
+        var guesses_str = guesses.length === 1 ? "guess" : "guesses"
+        $("#victory").text("You won in " + guesses.length + " " + guesses_str + "!");
         $("#victory_container").show();
         $("#guess_form_container").hide();
         has_won = true;
@@ -248,13 +353,17 @@ $( document ).ready(function() {
       share += "I won after "
     }
     else {
-      share += "I lost after "
+      share += "I gave up after "
     }
-    share += guesses.length + " guesses\n\n"
+    if(is_timed) {
+      share += time_elapsed + " seconds and ";
+    }
+    var guesses_str = guesses.length === 1 ? "guess" : "guesses"
+    share += guesses.length + " " + guesses_str + "\n\n"
     for(var i = 0; i < guess_sts.length; i++) {
       var cur_st = guess_sts[i];
       var symbols = '';
-      for(var j = 0; j < 5; j++) {
+      for(var j = 0; j < word_length; j++) {
         if(cur_st.charAt(j) === '0') {
           symbols += '⬜';
         }
@@ -274,6 +383,7 @@ $( document ).ready(function() {
 
   $("#guess_form_giveup").click(function(e) {
     my_word = validwords[Math.floor(Math.random()*validwords.length)];
+    stop_timer();
     $("#victory").text("I was thinking of \"" + my_word + "\". You lose!");
     $("#victory_container").show();
     $("#warning").empty();
@@ -284,15 +394,28 @@ $( document ).ready(function() {
     var sampleTextarea = document.createElement("textarea");
     document.body.appendChild(sampleTextarea);
     sampleTextarea.value = text; //save main text in it
-    sampleTextarea.select(); //select textarea contenrs
+    sampleTextarea.select(); //select textarea
     document.execCommand("copy");
     document.body.removeChild(sampleTextarea);
   }
 
+  $(".reset").click(function(e) {
+    reset_canvas();
+  });
+
   $("#share_button").click(function(e) {
     var share = generate_share();
-    $("#share_container").text("Copied to clipboard!");
-  })
+    $("#share_button").hide()
+    $("#share_note").show();
+  });
+
+  $("form#options_form :input").change(function() {
+    reset_canvas();
+  });
+
+  $("#options_toggle").click(function(e) {
+    toggle_options(!options_shown);
+  });
 });
 
 

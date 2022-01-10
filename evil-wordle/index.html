@@ -21,6 +21,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/megaworld.css">
 
   <meta name="theme-color" content="#fafafa">
 </head>
@@ -28,9 +29,57 @@
 <body>
   <main>
     <h1>😈 EVIL WORDLE 😈</h1>
-    <p>
+    <div id="intro">
       <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">Wordle</a> is a word guessing game. I'm the evil twin. Try and guess what I'm thinking of...
-    </p>
+    </div>
+    <div id="options">
+      <form id="options_form">
+        <a href="javascript:void(0)" id="options_toggle">Options &#x25B6;</a>
+        <div id="options_container">
+          <div>
+            <span class="options_label">Word length:</span>
+            <span>
+              <input type="radio" id="len5" name="word_length" value="5" checked>
+              <label for="len5">5</label>
+            </span>
+            <span>
+              <input type="radio" id="len6" name="word_length" value="6">
+              <label for="len6">6</label>
+            </span>
+            <!-- <span>
+              <input type="radio" id="len7" name="word_length" value="7">
+              <label for="len7">7</label>
+            </span>
+            <span>
+              <input type="radio" id="len8" name="word_length" value="8">
+              <label for="len8">8</label>
+            </span> -->
+          </div>
+          <div>
+            <span class="options_label">Evil?</span>
+            <span>
+              <input type="radio" id="evil_yes" name="is_evil" value="yes" checked>
+              <label for="evil_yes">Yes 😈</label>
+            </span>
+            <span>
+              <input type="radio" id="evil_no" name="is_evil" value="no">
+              <label for="evil_no">No 😇</label>
+            </span>
+          </div>
+          <div>
+            <span class="options_label">Mode</span>
+            <span>
+              <input type="radio" id="game_mode_standard" name="game_mode" value="standard" checked>
+              <label for="game_mode_standard">Standard</label>
+            </span>
+            <span>
+              <input type="radio" id="game_mode_timed" name="game_mode" value="timed">
+              <label for="game_mode_timed">Timed</label>
+            </span>
+          </div>
+        </div>
+      </form>
+    </div>
     <div id="guess_form_container">
       <form id="guess_form">
         <input type="text" id="guess" placeholder="5 letters" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
@@ -43,14 +92,25 @@
       <div id="victory"></div>
       <p id="share_container">
         <a href="javascript:void(0)" id="share_button">Click Here to share results</a>
+        <span id="share_note">Copied to clipboard!</span>
+      </p>
+      <p>
+        <a href="javascript:void(0)" class="reset">Start Over</a>
       </p>
     </div>
     <div id="wordlist">
-    </div>  
-    <div id="keyboard">
-      <div class="keyboard_row" id="keyboard_row0"></div>
-      <div class="keyboard_row" id="keyboard_row1"></div>
-      <div class="keyboard_row" id="keyboard_row2"></div>
+    </div>
+    <div id="keyboard_container" class="timer_active">
+      <div id="keyboard">
+        <div class="keyboard_row" id="keyboard_row0"></div>
+        <div class="keyboard_row" id="keyboard_row1"></div>
+        <div class="keyboard_row" id="keyboard_row2"></div>
+      </div>
+      <div id="timer">
+        <h3>Timer</h3>
+        <p id="timer-display">--</p>
+      </div>
+      <div class="clearfix"></div>
     </div>
     <div id="author">
       <p>Evil Wordle was created by Ravi Parikh. Twitter: <a href="https://twitter.com/ravisparikh">@ravisparikh</a></p>

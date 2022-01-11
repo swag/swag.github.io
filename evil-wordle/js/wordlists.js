@@ -7263,7 +7263,6 @@ var words_all_5 = [
   'faery',
   'faffy',
   'fager',
-  'faggy',
   'fagin',
   'fagot',
   'fagus',

@@ -1,6 +1,7 @@
 var guesses = [];
 var guess_sts = [];
 var has_won = false;
+var is_colorblind = false;
 var validwords = [];
 var my_word = "";
 var words_common = words_common_5;
@@ -36,6 +37,7 @@ var init_keyboard = function() {
 var change_options = function() {
   word_length = parseInt($('input[name="word_length"]:checked').val());
   is_evil = $('input[name="is_evil"]:checked').val() === "yes";
+  is_colorblind = $('input[name="display_mode"]:checked').val() === "colorblind";
   is_timed = $('input[name="game_mode"]:checked').val() === "timed";
 };
 
@@ -119,6 +121,14 @@ var reset_canvas = function() {
   else {
     my_word = words_common[Math.floor(Math.random()*words_common.length)];
     validwords = [my_word];
+  }
+
+  // toggle color blind mode
+  if(is_colorblind) {
+    $("main").addClass("colorblind");
+  }
+  else {
+    $("main").removeClass("colorblind");
   }
 
   win_string = '2'.repeat(word_length);

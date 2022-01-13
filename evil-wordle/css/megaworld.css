@@ -64,14 +64,6 @@ h1 {
   color: white;
 }
 
-.letterbtn.correct {
-  background-color: green;
-}
-
-.letterbtn.contained {
-  background-color: goldenrod;
-}
-
 #howitworks {
   display: none;
 }
@@ -147,12 +139,20 @@ h1 {
   color: white;
 }
 
-#keyboard .key.selected.contained {
+#keyboard .key.selected.contained.correct, #keyboard .key.selected.correct, .letterbtn.correct {
+  background-color: green;
+}
+
+#keyboard .key.selected.contained, .letterbtn.contained {
   background-color: goldenrod;
 }
 
-#keyboard .key.selected.contained.correct, #keyboard .key.selected.correct {
-  background-color: green;
+main.colorblind #keyboard .key.selected.contained.correct, main.colorblind #keyboard .key.selected.correct, main.colorblind .letterbtn.correct {
+  background-color: #f5793a;
+}
+
+main.colorblind #keyboard .key.selected.contained, main.colorblind .letterbtn.contained {
+  background-color: #85c0f9;
 }
 
 #timer {

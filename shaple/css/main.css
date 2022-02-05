@@ -344,11 +344,11 @@ main {
   width: 60px;
   height: 60px;
   float: left;
-  margin-left: 80px;
+  margin-left: 60px;
 }
 
 .cube.choice-cube:first-child {
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .turn-1 {

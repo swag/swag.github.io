@@ -170,6 +170,7 @@ var reset = function() {
   score = 0;
   guesses = 0;
   start_index = Math.floor(Math.random() * 10);
+  guess_log = [];
   $("#endgame").hide();
   $("#game-container").show();
   $("#status").html("Choose the shape that matches.<br/>" + max_guesses + " shapes left.");

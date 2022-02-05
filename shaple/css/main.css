@@ -282,9 +282,21 @@ main {
   to { transform: rotate3d(-1, 1, 1, 360deg); }
 }
 
+@-webkit-keyframes turn1 {
+  0% { -webkit-transform: rotate3d(0, 0, 0, 0); }
+  50% {  -webkit-transform: rotate3d(-1, 1, 1, 180deg); }
+  100% { -webkit-transform: rotate3d(1, -1, -1, 360deg); }
+}
+
 @keyframes turn2 {
   from { transform: rotate3d(0, 0, 0, 0); }
   to { transform: rotate3d(1, -1, 1, 360deg); }
+}
+
+@-webkit-keyframes turn2 {
+  0% { -webkit-transform: rotate3d(0, 0, 0, 0); }
+  50% {  -webkit-transform: rotate3d(1, -1, 1, 180deg); }
+  100% { -webkit-transform: rotate3d(-1, 1, -1, 360deg); }
 }
 
 @keyframes turn3 {
@@ -292,9 +304,21 @@ main {
   to { transform: rotate3d(1, 1, -1, 360deg); }
 }
 
+@-webkit-keyframes turn3 {
+  0% { -webkit-transform: rotate3d(0, 0, 0, 0); }
+  50% {  -webkit-transform: rotate3d(1, 1, -1, 180deg); }
+  100% { -webkit-transform: rotate3d(1, 1, -1, 360deg); }
+}
+
 @keyframes turn4 {
   from { transform: rotate3d(0, 0, 0, 0); }
   to { transform: rotate3d(1, 1, 1, 360deg); }
+}
+
+@-webkit-keyframes turn4 {
+  0% { -webkit-transform: rotate3d(0, 0, 0, 0); }
+  50% {  -webkit-transform: rotate3d(1, 1, 1, 180deg); }
+  100% { -webkit-transform: rotate3d(-1, -1, -1, 360deg); }
 }
 
 #game-container {
@@ -314,7 +338,6 @@ main {
 
 .cube.main-cube {
   margin: 0 auto;
-  /*animation: turn4 5s linear infinite;*/
 }
 
 .cube.choice-cube {
@@ -328,32 +351,36 @@ main {
   margin-left: 10px;
 }
 
-/*.cube.choice-cube.choice-1 {
-  animation: turn1 4s linear infinite;
-}
-
-.cube.choice-cube.choice-2 {
-  animation: turn2 4s linear infinite;
-}
-
-.cube.choice-cube.choice-3 {
-  animation: turn3 6s linear infinite;
-}*/
-
 .turn-1 {
   animation: turn1 4s linear infinite;
+  -webkit-animation-name: turn1;
+  -webkit-animation-duration: 4s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
 }
 
 .turn-2 {
   animation: turn2 4.5s linear infinite;
+  -webkit-animation-name: turn2;
+  -webkit-animation-duration: 4.5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
 }
 
 .turn-3 {
   animation: turn3 5s linear infinite;
+  -webkit-animation-name: turn3;
+  -webkit-animation-duration: 5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
 }
 
 .turn-4 {
   animation: turn4 5.5s linear infinite;
+  -webkit-animation-name: turn4;
+  -webkit-animation-duration: 5.5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
 }
 
 .face {

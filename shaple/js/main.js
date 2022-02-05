@@ -21,6 +21,8 @@ let max_guesses = 5;
 var start = 0;
 var time_elapsed = 0;
 
+var guess_log = [];
+
 var shuffle = function(array) {
   let currentIndex = array.length,  randomIndex;
 
@@ -121,19 +123,16 @@ var end_game = function() {
   $("#game-container").hide();
   $("#finalscore").text("" + score);
   if(score === max_guesses) {
-    $("#scoremessage").text("Amazing. Perfect shape rotation skills.");
+    $("#scoremessage").text("Amazing. Perfect cubelord status.");
   }
   else if(score === max_guesses-1) {
-    $("#scoremessage").text("Close to perfection.");
-  }
-  else if(score >= max_guesses * 0.5) {
-    $("#scoremessage").text("Nice job!");
+    $("#scoremessage").text("Close to perfection. Approaching shapechad.");
   }
   else if(score > max_guesses * 0.333) {
-    $("#scoremessage").text("");
+    $("#scoremessage").text("Nice rotating, rotator.");
   }
   else if(score === 0) {
-    $("#scoremessage").text("Not a single one right.");
+    $("#scoremessage").text("Big oof");
   }
   else {
     $("#scoremessage").text("Oof...Worse than random chance.");
@@ -150,7 +149,17 @@ var copyToClipboard = function(text) {
 }
 
 var generate_share = function() {
-  var share = "I played Shaple and rotated " + score + " out of " + max_guesses + " shapes correctly in " + time_elapsed + " seconds. 🟧🔄🔶"
+  var share = "I played Shaple and rotated " + score + " out of " + max_guesses + " shapes correctly in " + time_elapsed + " seconds."
+  share += "\n\n";
+  for(var i = 0; i < guess_log.length; i++) {
+    var cur_log = guess_log[i];
+    if(guess_log[i] === 0) {
+      share += '⬜';
+    }
+    else {
+      share += '🟩';
+    }
+  }
   share += '\n\nhttps://swag.github.io/shaple/';
   copyToClipboard(share);
   return share;
@@ -184,6 +193,10 @@ $(".choice-cube").click(function(e) {
   if(current_guess === correct_guess) {
     score++;
     status = "correct"
+    guess_log.push(1);
+  }
+  else {
+    guess_log.push(0);
   }
   var remaining_guesses = max_guesses - guesses;
   $("#status").html(status + ". " + score + " / " + guesses + "<br/>" + remaining_guesses + " shapes left.");
@@ -201,4 +214,6 @@ $("#replay").click(function(e) {
 })
 
 // start game
-reset();
+$( document ).ready(function() {
+  reset();
+});

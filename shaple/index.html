@@ -1,0 +1,102 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Shaple by Ravi Parikh</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  <main>
+    <h1>Shaple</h1>
+    <p id="description">
+      by <a href="https://twitter.com/ravisparikh">@ravisparikh</a>
+    </p>
+    <div id="game-container">
+      <div class="cube main-cube">
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+        <div class="face left"></div>
+        <div class="face right"></div>
+        <div class="face front"></div>
+        <div class="face back"></div>
+      </div>
+      <div id="choices">
+        <div class="cube choice-cube choice-1" data-guess="1">
+          <div class="face top"></div>
+          <div class="face bottom"></div>
+          <div class="face left"></div>
+          <div class="face right"></div>
+          <div class="face front"></div>
+          <div class="face back"></div>
+        </div>
+        <div class="cube choice-cube choice-2" data-guess="2">
+          <div class="face top"></div>
+          <div class="face bottom"></div>
+          <div class="face left"></div>
+          <div class="face right"></div>
+          <div class="face front"></div>
+          <div class="face back"></div>
+        </div>
+        <div class="cube choice-cube choice-3" data-guess="3">
+          <div class="face top"></div>
+          <div class="face bottom"></div>
+          <div class="face left"></div>
+          <div class="face right"></div>
+          <div class="face front"></div>
+          <div class="face back"></div>
+        </div>
+        <div style="clear:both"></div>
+      </div>
+      <div id="status">
+      </div>
+    </div>
+
+    <div id="endgame">
+      <p>
+        You got <span id="finalscore"></span> out of 5 rotations correct in <span id="time_elapsed"></span> seconds.
+        <span id="scoremessage"></span>
+      </p>
+      <p><a href="javascript:void(0)" id="replay">Play again?</a></p>
+      <p id="share_container">
+        <a href="javascript:void(0)" id="share_button">Click Here to share results</a>
+        <span id="share_msg">Copied to clipboard!</span>
+      </p>
+    </div>
+  </main>
+
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>
